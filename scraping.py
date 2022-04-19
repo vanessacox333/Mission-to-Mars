@@ -97,73 +97,74 @@ def mars_facts():
 
 # # D1: Scrape High-Resolution Mars’ Hemisphere Images and Titles
 
+def hemisphere(browser):
+
+    # 1. Use browser to visit the URL 
+    url = 'https://marshemispheres.com/'
+
+    browser.visit(url)
 
 
-# 1. Use browser to visit the URL 
-url = 'https://marshemispheres.com/'
+    # 2. Create a list to hold the images and titles.
+    hemisphere_image_urls = []
 
-browser.visit(url)
-
-
-# 2. Create a list to hold the images and titles.
-hemisphere_image_urls = []
-
-# 3. Write code to retrieve the image urls and titles for each hemisphere.
-html = browser.html
-hemisphere_soup = soup(html, 'html.parser')
-
-
-# Results returned as an iterable list
-items = hemisphere_soup.find_all('div', class_='item')
-
-# Loop through items
-for i in items:
-    
-    
-    # Create empty hemispheres dictionary
-    hemispheres = {}  
-    
-    # Retrieve the titles
-    title = i.find('h3').get_text()
-    print(title)
-    
-    
-    # Get the link to go the full image site
-    img_url = i.find('a')['href']
-    print(img_url)
-    
-    # Creating the full_img_url
-    full_img_url = url + img_url
-    
-    # Use browser to go to the full image url and set up the HTML parser
-    browser.visit(full_img_url)
+    # 3. Write code to retrieve the image urls and titles for each hemisphere.
     html = browser.html
-    img_soup = soup(html, 'html.parser')
-    
-    # Retrieve the full image urls
-    hemisphere_img = img_soup.find('div', class_='downloads')
-    hemisphere_full_img = hemisphere_img.find('a')['href']
-    hemi_url = url + hemisphere_full_img
-    
-    # Printing hemisphere_full_img
-    print(hemi_url)
-    
-    
-    # Creating hemispheres dict
-    hemispheres['img_url'] = hemi_url
-    hemispheres['title'] = title
-  
-    #Append the hemisphere_image_urls list
-    hemisphere_image_urls.append(hemispheres)
-    
+    hemisphere_soup = soup(html, 'html.parser')
 
 
-# 4. Print the list that holds the dictionary of each image url and title.
-hemisphere_image_urls
+    # Results returned as an iterable list
+    items = hemisphere_soup.find_all('div', class_='item')
+
+    # Loop through items
+    for i in items:
+        
+        
+        # Create empty hemispheres dictionary
+        hemispheres = {}  
+        
+        # Retrieve the titles
+        title = i.find('h3').get_text()
+        print(title)
+        
+        
+        # Get the link to go the full image site
+        img_url = i.find('a')['href']
+        print(img_url)
+        
+        # Creating the full_img_url
+        full_img_url = url + img_url
+        
+        # Use browser to go to the full image url and set up the HTML parser
+        browser.visit(full_img_url)
+        html = browser.html
+        img_soup = soup(html, 'html.parser')
+        
+        # Retrieve the full image urls
+        hemisphere_img = img_soup.find('div', class_='downloads')
+        hemisphere_full_img = hemisphere_img.find('a')['href']
+        hemi_url = url + hemisphere_full_img
+        
+        # Printing hemisphere_full_img
+        print(hemi_url)
+        
+        
+        # Creating hemispheres dict
+        hemispheres['img_url'] = hemi_url
+        hemispheres['title'] = title
+    
+        #Append the hemisphere_image_urls list
+        hemisphere_image_urls.append(hemispheres)
+        browser.back() 
+        
 
 
-# 5. Quit the browser
-browser.quit()
+    # 4. Print the list that holds the dictionary of each image url and title.
+        return(hemisphere_image_urls)
+
+
+    # # 5. Quit the browser
+    # browser.quit()
 
 
 
