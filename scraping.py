@@ -155,7 +155,7 @@ def hemisphere(browser):
     
         #Append the hemisphere_image_urls list
         hemisphere_image_urls.append(hemispheres)
-        browser.back() 
+        # browser.back() 
         
 
 
