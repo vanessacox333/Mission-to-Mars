@@ -2,6 +2,7 @@
 from splinter import Browser
 from bs4 import BeautifulSoup as soup
 import pandas as pd
+import datetime as dt
 
 
 def scrape_all():
@@ -16,11 +17,13 @@ def scrape_all():
         "news_paragraph": news_paragraph,
         "featured_image": featured_image(browser),
         "facts": mars_facts(),
+        "hemispheres" : hemispheres(browser),
         "last_modified": dt.datetime.now()
     }
 
     # Stop webdriver and return data
     browser.quit()
+    print(data)
     return data
 
 
@@ -97,7 +100,7 @@ def mars_facts():
 
 # # D1: Scrape High-Resolution Mars’ Hemisphere Images and Titles
 
-def hemisphere(browser):
+def hemispheres(browser):
 
     # 1. Use browser to visit the URL 
     url = 'https://marshemispheres.com/'
@@ -146,7 +149,7 @@ def hemisphere(browser):
         hemi_url = url + hemisphere_full_img
         
         # Printing hemisphere_full_img
-        print(hemi_url)
+        # print(hemi_url)
         
         
         # Creating hemispheres dict
@@ -157,14 +160,14 @@ def hemisphere(browser):
         hemisphere_image_urls.append(hemispheres)
         # browser.back() 
         
-
+        print(hemisphere_image_urls)
 
     # 4. Print the list that holds the dictionary of each image url and title.
-        return(hemisphere_image_urls)
+    return(hemisphere_image_urls)
 
 
     # # 5. Quit the browser
-    # browser.quit()
+    browser.quit()
 
 
 
